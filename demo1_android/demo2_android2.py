@@ -48,6 +48,17 @@ class TestAndroidDeviceCloud(AppiumConfig):
         self.driver.find_element(AppiumBy.XPATH, "//*[@text='Email address']").send_keys("XYZ@abc.com")
         self.driver.find_element(AppiumBy.XPATH, "//*[@text='Password']").send_keys("XYZ@abc")
         self.driver.find_element(AppiumBy.XPATH, "//android.widget.TextView[@text='Birthday']").click()
+        actual_text = self.driver.find_element(AppiumBy.XPATH, "//*[@resource-id='android:id/numberpicker_input']").text
+
+        day_xpath = None
+        month_xpath = None
+
+        if len(actual_text) == 2:
+            day_xpath = "//*[@resource-id='android:id/numberpicker_input']"
+            month_xpath = "(//*[@resource-id='android:id/numberpicker_input'])[2]"
+        else:
+            month_xpath = "//*[@resource-id='android:id/numberpicker_input']"
+            day_xpath = "(//*[@resource-id='android:id/numberpicker_input'])[2]"
         self.driver.find_element(AppiumBy.XPATH, "(//*[@resource-id='android:id/numberpicker_input'])[1]").click()
         self.driver.find_element(AppiumBy.XPATH, "(//*[@resource-id='android:id/numberpicker_input'])[1]").clear()
         self.driver.find_element(AppiumBy.XPATH, "(//*[@resource-id='android:id/numberpicker_input'])[1]").send_keys("Aug")
